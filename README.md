@@ -4,6 +4,8 @@ This program consists of a GUI that is capable of predicting the likelihood of a
 
 **Author:** Andrew Cotter --- **Student Number:** C237823019
 
+**Link to Demonstration Video**: https://youtu.be/K7beBmCdb-Y
+
 ## Key Features:
 - Allows the user to find the probability of a specific permutation appearing out of the dataset.
 - Creation of new entries to the dataset.
