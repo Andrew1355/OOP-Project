@@ -19,7 +19,7 @@ public class GUI extends FileProcessor
 
     public GUI() 
     {
-        super("IsHouseOccupied.csv");
+        super("IsHouseOccupied.csv"); // This is how you determine what file is being read/written to.
         {
         JFrame frame = new JFrame("Predictive Model");
         frame.setPreferredSize(new Dimension(400, 700));
