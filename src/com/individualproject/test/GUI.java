@@ -19,8 +19,8 @@ public class GUI extends FileProcessor
 
     public GUI() 
     {
-        super("IsHouseOccupied.csv"); // Replace with appropriate arguments for FileProcessor constructor
-    {
+        super("IsHouseOccupied.csv");
+        {
         JFrame frame = new JFrame("Predictive Model");
         frame.setPreferredSize(new Dimension(400, 700));
         frame.setLayout(new GridLayout(0, 3));
