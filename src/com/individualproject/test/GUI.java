@@ -5,25 +5,29 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI extends FileProcessor
+public class GUI extends FileProcessor 
+// This class extends FileProcessor, which is a class that handles reading and writing to a CSV file.
 {
+    // RadioButtons were used as they gave an either/or option for the user to select from.
     private JLabel tempLabel, humidityLabel, timeLabel, dayLabel;
     private JRadioButton temperature1, temperature2;
     private JRadioButton humidity1, humidity2;
     private JRadioButton time1, time2;
     private JRadioButton day1, day2;
     private JRadioButton yes, no;
-    private JButton Calculate, TrainModel, NewEntry;
+    private JButton Calculate, NewEntry;
     private ButtonGroup tempGroup, humidityGroup, timeGroup, dayGroup, yesNo;
+    // ButtonGroups were used to group related RadioButtons together, this made it so only one of a pair could be selected at a time.
 
 
     public GUI() 
     {
         super("IsHouseOccupied.csv"); // This is how you determine what file is being read/written to.
-        {
+    {
         JFrame frame = new JFrame("Predictive Model");
-        frame.setPreferredSize(new Dimension(400, 700));
+        frame.setSize(400, 700);
         frame.setLayout(new GridLayout(0, 3));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Adding first row of buttons (Temperature)
         tempLabel = new JLabel("Temperature: ");
@@ -100,19 +104,8 @@ public class GUI extends FileProcessor
                 addEntry();
             }
         });
-        
-        TrainModel = new JButton("Train Model");
-        TrainModel.addActionListener(new ActionListener() 
-        {
-            @Override
-            public void actionPerformed(ActionEvent e) 
-            {
-                addEntry();
-            }
-        });
 
-        frame.add(Calculate);
-        frame.add(TrainModel);  
+        frame.add(Calculate); 
         frame.add(NewEntry);
 
 
@@ -121,9 +114,11 @@ public class GUI extends FileProcessor
     }
 }
 
+    // This function takes user input from the GUI and then calculates the probability of the selected combination of values.
+    // It reads the data from the CSV file and counts how many times the selected combination appears in the data.
     void calculateProbability()
     {
-        // Get the selected values from the GUI
+        // Get the selected values from the GUI and store them in variables
         String SelectedTemp = temperature1.isSelected() ? "High" : "Low";
         String SelectedHumidity = humidity1.isSelected() ? "High" : "Low";
         String SelectedTime = time1.isSelected() ? "Morning" : "Evening";
@@ -144,6 +139,8 @@ public class GUI extends FileProcessor
                 v.day = row[3].trim();
                 v.yesNo = row[4].trim();
                 Values.add(v);
+                // Adds each cell in a row to the list of values
+                // The trim() method is used to remove any leading or trailing whitespace from the string.
             }
         }
 
@@ -155,12 +152,14 @@ public class GUI extends FileProcessor
                 value.time.equals(SelectedTime) &&
                 value.day.equals(SelectedDay) &&
                 value.yesNo.equals(SelectedYesNo))
+                // Checks if all of the cells in a row match the selected user parameters
             {
                 Matches++;
             }
         }
 
-        double probability = Values.size() > 0 ? (double) Matches / Values.size() * 100 : 0;
+        double probability = Values.size() > 0 ? (double) Matches / Values.size() * 100 : 0; 
+        // Checks if the size of the list is greater than 0, if it is not, then the probability is set to 0.
         JOptionPane.showMessageDialog(null, "Probability of selected combination: " + probability + "%");
     }
 
@@ -173,7 +172,7 @@ public class GUI extends FileProcessor
         String yesNo;
     }
 
-    void addEntry()
+    void addEntry() //function to add a new entry to the CSV file
     {
         // Get the selected values from the GUI
         String SelectedTemp = temperature1.isSelected() ? "High" : "Low";
@@ -190,7 +189,7 @@ public class GUI extends FileProcessor
 
     public static void main(String[] args)
     {
-        @SuppressWarnings("unused")
+        @SuppressWarnings("unused") // This was just done to prevent errors from showing where there is no runtime error
         GUI GUI = new GUI();
     }
 }
